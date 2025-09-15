@@ -5,9 +5,9 @@ import { PhotoWidget } from "./photo-widget";
 
 interface PhotoListProps {
 	photos: Photo[];
-	loading: boolean;
+	loading?: boolean;
 }
-export function PhotosList({ loading, photos }: PhotoListProps) {
+export function PhotosList({ loading = false, photos }: PhotoListProps) {
 	return (
 		<div className="space-y-6">
 			<Text
@@ -36,7 +36,7 @@ export function PhotosList({ loading, photos }: PhotoListProps) {
 					{Array.from({ length: 10 }).map((_, index) => (
 						<PhotoWidget
 							key={`photo-loading-${
-								// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+								// biome-ignore lint/suspicious/noArrayIndexKey: <using index with text>
 								index
 							}`}
 							loading={loading}
