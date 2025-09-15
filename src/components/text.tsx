@@ -1,5 +1,5 @@
-import React from "react";
-import {tv, type VariantProps} from "tailwind-variants";
+import { createElement, type JSX, type ReactNode } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 export const textVariants = tv({
 	base: "font-sans text-white",
@@ -21,24 +21,24 @@ export const textVariants = tv({
 });
 
 interface TextProps extends VariantProps<typeof textVariants> {
-	as?: keyof React.JSX.IntrinsicElements;
+	as?: keyof JSX.IntrinsicElements;
 	className?: string;
-	children?: React.ReactNode;
+	children?: ReactNode;
 }
 
-export default function Text({
+export function Text({
 	as = "span",
 	variant,
 	className,
 	children,
 	...props
 }: TextProps) {
-	return React.createElement(
+	return createElement(
 		as,
 		{
-			className: textVariants({variant, className}),
+			className: textVariants({ variant, className }),
 			...props,
 		},
-		children
+		children,
 	);
 }

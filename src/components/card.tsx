@@ -1,5 +1,5 @@
-import {type VariantProps, tv} from "tailwind-variants";
-import React from "react";
+import { type ComponentProps, createElement, type JSX } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 export const cardVariants = tv({
 	base: `
@@ -24,11 +24,11 @@ export const cardVariants = tv({
 
 interface CardProps
 	extends VariantProps<typeof cardVariants>,
-		React.ComponentProps<"div"> {
-	as?: keyof React.JSX.IntrinsicElements;
+		ComponentProps<"div"> {
+	as?: keyof JSX.IntrinsicElements;
 }
 
-export default function Card({
+export function Card({
 	as = "div",
 	size,
 	variant,
@@ -36,12 +36,12 @@ export default function Card({
 	className,
 	...props
 }: CardProps) {
-	return React.createElement(
+	return createElement(
 		as,
 		{
-			className: cardVariants({size, variant, className}),
+			className: cardVariants({ size, variant, className }),
 			...props,
 		},
-		children
+		children,
 	);
 }

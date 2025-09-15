@@ -1,9 +1,9 @@
-import React from "react";
-import Icon from "./icon";
-import Text from "./text";
-import {tv, type VariantProps} from "tailwind-variants";
-import SpinnerIcon from "../assets/icons/spinner.svg?react";
 import cx from "classnames";
+import type { ComponentProps } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
+import SpinnerIcon from "../assets/icons/spinner.svg?react";
+import { Icon } from "./icon";
+import { Text } from "./text";
 
 export const buttonVariants = tv({
 	base: "flex items-center justify-center cursor-pointer transition rounded group gap-1",
@@ -13,7 +13,7 @@ export const buttonVariants = tv({
 			secondary: "bg-background-secondary hover:bg-background-tertiary",
 			destructive: "bg-background-secondary hover:bg-background-tertiary",
 			ghost: `
-					bg-transparent border border-solid border-border-primary 
+					bg-transparent border border-solid border-border-primary
 				text-accent-paragraph hover:border-background-secondary
 				`,
 		},
@@ -78,13 +78,13 @@ export const buttonIconVariants = tv({
 });
 
 interface ButtonProps
-	extends Omit<React.ComponentProps<"button">, "size" | "disabled">,
+	extends Omit<ComponentProps<"button">, "size" | "disabled">,
 		VariantProps<typeof buttonVariants> {
-	icon?: React.ComponentProps<typeof Icon>["svg"];
+	icon?: ComponentProps<typeof Icon>["svg"];
 	handling?: boolean;
 }
 
-export default function Button({
+export function Button({
 	variant,
 	size,
 	disabled,
@@ -107,7 +107,7 @@ export default function Button({
 					{
 						"pr-1": icon,
 					},
-					className
+					className,
 				),
 			})}
 			disabled={disabled as boolean}
@@ -115,7 +115,7 @@ export default function Button({
 		>
 			<Text
 				variant="label-medium"
-				className={buttonTextVariants({variant, size})}
+				className={buttonTextVariants({ variant, size })}
 			>
 				{children}
 			</Text>
@@ -123,7 +123,7 @@ export default function Button({
 				<Icon
 					svg={handling ? SpinnerIcon : icon!}
 					animate={handling}
-					className={buttonIconVariants({variant, size, handling})}
+					className={buttonIconVariants({ variant, size, handling })}
 				/>
 			)}
 		</button>

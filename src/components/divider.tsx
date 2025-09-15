@@ -1,4 +1,5 @@
-import {tv, type VariantProps} from "tailwind-variants";
+import type { ComponentProps } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 export const dividerVariants = tv({
 	base: "w-full h-px ",
@@ -17,17 +18,17 @@ export const dividerVariants = tv({
 });
 
 interface DividerProps
-	extends React.ComponentProps<"div">,
+	extends ComponentProps<"div">,
 		VariantProps<typeof dividerVariants> {
 	orientation?: "horizontal" | "vertical";
 }
 
-export default function Divider({
+export function Divider({
 	className,
 	orientation = "horizontal",
 	...props
 }: DividerProps) {
 	return (
-		<div className={dividerVariants({className, orientation})} {...props} />
+		<div className={dividerVariants({ className, orientation })} {...props} />
 	);
 }

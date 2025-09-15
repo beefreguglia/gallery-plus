@@ -1,5 +1,5 @@
-import {type VariantProps, tv} from "tailwind-variants";
-import React from "react";
+import { type ComponentProps, createElement, type JSX } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 export const containerVariants = tv({
 	base: "mx-auto",
@@ -15,22 +15,22 @@ export const containerVariants = tv({
 
 interface ContainerProps
 	extends VariantProps<typeof containerVariants>,
-		React.ComponentProps<"div"> {
-	as?: keyof React.JSX.IntrinsicElements;
+		ComponentProps<"div"> {
+	as?: keyof JSX.IntrinsicElements;
 }
 
-export default function Container({
+export function Container({
 	as = "div",
 	children,
 	className,
 	...props
 }: ContainerProps) {
-	return React.createElement(
+	return createElement(
 		as,
 		{
-			className: containerVariants({size: "md", className}),
+			className: containerVariants({ size: "md", className }),
 			...props,
 		},
-		children
+		children,
 	);
 }

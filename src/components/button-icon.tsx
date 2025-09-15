@@ -1,7 +1,7 @@
-import React from "react";
-import Icon from "./icon";
-import {tv, type VariantProps} from "tailwind-variants";
+import type { ComponentProps } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 import SpinnerIcon from "../assets/icons/spinner.svg?react";
+import { Icon } from "./icon";
 
 export const buttonIconVariants = tv({
 	base: "inline-flex items-center justify-center cursor-pointer transition",
@@ -48,12 +48,12 @@ export const buttonIconIconVariants = tv({
 
 interface ButtonIconProps
 	extends VariantProps<typeof buttonIconVariants>,
-		Omit<React.ComponentProps<"button">, "size" | "disabled"> {
-	icon: React.ComponentProps<typeof Icon>["svg"];
+		Omit<ComponentProps<"button">, "size" | "disabled"> {
+	icon: ComponentProps<typeof Icon>["svg"];
 	handling?: boolean;
 }
 
-export default function ButtonIcon({
+export function ButtonIcon({
 	variant,
 	size,
 	disabled,
@@ -76,7 +76,7 @@ export default function ButtonIcon({
 			<Icon
 				svg={handling ? SpinnerIcon : icon}
 				animate={handling}
-				className={buttonIconIconVariants({variant, size})}
+				className={buttonIconIconVariants({ variant, size })}
 			/>
 		</button>
 	);

@@ -1,5 +1,5 @@
-import {tv, type VariantProps} from "tailwind-variants";
-import React from "react";
+import type { ComponentProps } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 export const skeletonVariants = tv({
 	base: "animate-pulse bg-background-secondary pointer-events-none",
@@ -17,12 +17,10 @@ export const skeletonVariants = tv({
 
 interface SkeletonProps
 	extends VariantProps<typeof skeletonVariants>,
-		React.ComponentProps<"div"> {}
+		ComponentProps<"div"> {}
 
-export default function Skeleton({
-	rounded,
-	className,
-	...props
-}: SkeletonProps) {
-	return <div className={skeletonVariants({rounded, className})} {...props} />;
+export function Skeleton({ rounded, className, ...props }: SkeletonProps) {
+	return (
+		<div className={skeletonVariants({ rounded, className })} {...props} />
+	);
 }
