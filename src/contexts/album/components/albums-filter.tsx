@@ -34,7 +34,7 @@ export function AlbumsFilter({
 								key={album.id}
 								variant="ghost"
 								size="sm"
-								className="cursor-pointer shri"
+								className="cursor-pointer shrink-0"
 							>
 								{album.title}
 							</Button>
@@ -46,7 +46,7 @@ export function AlbumsFilter({
 						<Skeleton
 							className="w-28 h-7"
 							key={`loading-album-${
-								// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+								// biome-ignore lint/suspicious/noArrayIndexKey: <use index with text>
 								index
 							}`}
 						/>
