@@ -2,6 +2,7 @@ import type { ComponentProps } from "react";
 import { Link } from "react-router";
 import { tv } from "tailwind-variants";
 import Logo from "../assets/images/galeria-plus-full-logo.svg?react";
+import { AlbumNewDialog } from "../contexts/album/components/album-new-dialog";
 import { PhotoNewDialog } from "../contexts/photos/components/photo-new-dialog";
 import { Button } from "./button";
 import { Container } from "./container";
@@ -28,7 +29,9 @@ export function MainHeader({ className, ...rest }: MainHeaderProps) {
 			<Divider orientation="vertical" className="h-10" />
 			<div className="flex items-center gap-3">
 				<PhotoNewDialog trigger={<Button>Nova foto</Button>} />
-				<Button variant="secondary">Criar álbum</Button>
+				<AlbumNewDialog
+					trigger={<Button variant="secondary">Criar álbum</Button>}
+				/>
 			</div>
 		</Container>
 	);
