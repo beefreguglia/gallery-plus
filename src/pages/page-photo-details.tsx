@@ -55,15 +55,7 @@ export function PagePhotoDetails() {
 					<Text as="h3" variant="heading-medium" className="mb-6">
 						Álbuns
 					</Text>
-					<AlbumsListSelectable
-						loading={isLoadingPhoto}
-						albums={[
-							{ id: "1", title: "Title" },
-							{ id: "2", title: "Title 2" },
-							{ id: "3", title: "Title 3" },
-						]}
-						photo={photo}
-					/>
+					<AlbumsListSelectable photo={photo} />
 				</div>
 			</div>
 		</Container>

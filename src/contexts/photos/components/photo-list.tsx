@@ -1,13 +1,12 @@
 import { Skeleton } from "../../../components/skeleton";
 import { Text } from "../../../components/text";
+import { usePhotos } from "../hooks/use-photos";
 import type { Photo } from "../models/photo";
 import { PhotoWidget } from "./photo-widget";
 
-interface PhotoListProps {
-	photos: Photo[];
-	loading?: boolean;
-}
-export function PhotosList({ loading = false, photos }: PhotoListProps) {
+export function PhotosList() {
+	const { isLoadingPhotos, photos } = usePhotos();
+
 	return (
 		<div className="space-y-6">
 			<Text
@@ -16,22 +15,26 @@ export function PhotosList({ loading = false, photos }: PhotoListProps) {
 				className="flex items-center justify-end text-accent-span gap-1"
 			>
 				Total:{" "}
-				{!loading ? (
+				{!isLoadingPhotos ? (
 					<div>{photos.length}</div>
 				) : (
 					<Skeleton className="w-6 h-6" />
 				)}
 			</Text>
 
-			{!loading && photos.length > 0 && (
+			{!isLoadingPhotos && photos.length > 0 && (
 				<div className="grid grid-cols-5 gap-9">
 					{photos.map((photo) => (
-						<PhotoWidget key={photo.id} loading={loading} photo={photo} />
+						<PhotoWidget
+							key={photo.id}
+							loading={isLoadingPhotos}
+							photo={photo}
+						/>
 					))}
 				</div>
 			)}
 
-			{loading && (
+			{isLoadingPhotos && (
 				<div className="grid grid-cols-5 gap-9">
 					{Array.from({ length: 10 }).map((_, index) => (
 						<PhotoWidget
@@ -39,14 +42,14 @@ export function PhotosList({ loading = false, photos }: PhotoListProps) {
 								// biome-ignore lint/suspicious/noArrayIndexKey: <using index with text>
 								index
 							}`}
-							loading={loading}
+							loading={isLoadingPhotos}
 							photo={{} as Photo}
 						/>
 					))}
 				</div>
 			)}
 
-			{!loading && photos.length === 0 && (
+			{!isLoadingPhotos && photos.length === 0 && (
 				<div className="flex justify-center items-center h-full">
 					<Text variant="paragraph-large">Nenhuma foto encontrada.</Text>
 				</div>

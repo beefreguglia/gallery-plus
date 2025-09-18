@@ -34,15 +34,12 @@ export function PhotoImageSelectable({
 
 	return (
 		<label
-			htmlFor="input-checkbox"
 			className={photoImageSelectableVariants({
 				className,
 				select: isSelected,
 			})}
 		>
 			<InputCheckbox
-				name="input-checkbox"
-				id="input-checkbox"
 				size="sm"
 				checked={isSelected}
 				onChange={handleSelect}

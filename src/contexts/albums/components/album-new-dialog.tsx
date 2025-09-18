@@ -14,26 +14,14 @@ import { InputText } from "../../../components/input-text";
 import { Skeleton } from "../../../components/skeleton";
 import { Text } from "../../../components/text";
 import { PhotoImageSelectable } from "../../photos/components/photo-image-selectable";
-import type { Photo } from "../../photos/models/photo";
+import { usePhotos } from "../../photos/hooks/use-photos";
 
 interface AlbumNewDialogProps {
 	trigger: ReactNode;
 }
 
 export function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
-	const isLoadingPhotos = false;
-	const photos: Photo[] = [
-		{
-			id: "1",
-			albums: [
-				{ id: "1", title: "Title" },
-				{ id: "2", title: "Title 2" },
-				{ id: "3", title: "Title 3" },
-			],
-			imageId: "portrait-shadow.png",
-			title: "title",
-		},
-	];
+	const { isLoadingPhotos, photos } = usePhotos();
 
 	function handleTogglePhoto(selected: boolean, photoId: string) {
 		console.log(selected, photoId);
@@ -58,7 +46,7 @@ export function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
 									photos.map((photo) => (
 										<PhotoImageSelectable
 											key={photo.id}
-											src={`/images/${photo.imageId}`}
+											src={`${import.meta.env.VITE_IMAGES_URL}/${photo.imageId}`}
 											imageClassName="w-20 h-20"
 											onSelectImage={(selected) =>
 												handleTogglePhoto(selected, photo.id)
