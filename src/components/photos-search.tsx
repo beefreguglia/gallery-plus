@@ -1,16 +1,20 @@
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <> */
 import { type ChangeEvent, useCallback, useState } from "react";
 import SearchIcon from "../assets/icons/search.svg?react";
+import { usePhotos } from "../contexts/photos/hooks/use-photos";
 import { debounce } from "../helpers/utils";
 import { InputText } from "./input-text";
 
 export function PhotosSearch() {
 	const [inputValue, setInputValue] = useState("");
+	const { filters } = usePhotos();
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debouncedSetValue = useCallback(
 		debounce((value: string) => {
-			console.log("valor", value);
+			filters.setQ(value);
 		}, 300),
-		[],
+		[filters.setQ],
 	);
 
 	function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
