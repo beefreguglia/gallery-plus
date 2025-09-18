@@ -1,3 +1,5 @@
+import { useParams } from "react-router";
+
 import { Button } from "../components/button";
 import { Container } from "../components/container";
 import { ImagePreview } from "../components/image-preview";
@@ -5,20 +7,16 @@ import { Skeleton } from "../components/skeleton";
 import { Text } from "../components/text";
 import { AlbumsListSelectable } from "../contexts/albums/components/albums-list-selectable";
 import { PhotoNavigator } from "../contexts/photos/components/photo-navigator";
+import { usePhoto } from "../contexts/photos/hooks/use-photo";
+import type { Photo } from "../contexts/photos/models/photo";
 
 export function PagePhotoDetails() {
-	// const { id } = useParams();
-	const isLoadingPhoto = false;
-	const photo = {
-		id: "1",
-		albums: [
-			{ id: "1", title: "Title" },
-			{ id: "2", title: "Title 2" },
-			{ id: "3", title: "Title 3" },
-		],
-		imageId: "portrait-shadow.png",
-		title: "title",
-	};
+	const { id } = useParams();
+	const { photo, isLoadingPhoto, nextPhotoId, previousPhotoId } = usePhoto(id);
+
+	if (!isLoadingPhoto && !photo) {
+		return <div></div>;
+	}
 
 	return (
 		<Container>
@@ -30,13 +28,16 @@ export function PagePhotoDetails() {
 				) : (
 					<Skeleton className="w-48 h-8" />
 				)}
-				<PhotoNavigator loading={isLoadingPhoto} />
+				<PhotoNavigator
+					nextPhotoId={nextPhotoId}
+					previousPhotoId={previousPhotoId}
+				/>
 			</header>
 			<div className="grid grid-cols-[21rem_1fr] gap-24">
 				<div className="flex flex-col gap-3">
 					{!isLoadingPhoto ? (
 						<ImagePreview
-							src={`/images/${photo.imageId}`}
+							src={`${import.meta.env.VITE_IMAGES_URL}/${photo?.imageId}`}
 							title={photo?.title}
 							imageClassName="h-[21rem]"
 						/>
@@ -55,7 +56,7 @@ export function PagePhotoDetails() {
 					<Text as="h3" variant="heading-medium" className="mb-6">
 						Álbuns
 					</Text>
-					<AlbumsListSelectable photo={photo} />
+					<AlbumsListSelectable photo={photo as Photo} />
 				</div>
 			</div>
 		</Container>

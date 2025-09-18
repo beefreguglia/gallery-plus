@@ -6,11 +6,11 @@ import ArrowRightIcon from "../../../assets/icons/chevron-right.svg?react";
 import { Button } from "../../../components/button";
 import { ButtonIcon } from "../../../components/button-icon";
 import { Skeleton } from "../../../components/skeleton";
+import { usePhoto } from "../hooks/use-photo";
 
 interface PhotoNavigatorProps extends ComponentProps<"div"> {
-	previousPhotoId?: string;
 	nextPhotoId?: string;
-	loading?: boolean;
+	previousPhotoId?: string;
 }
 
 const photonavigatorVariants = tv({
@@ -18,17 +18,17 @@ const photonavigatorVariants = tv({
 });
 
 export function PhotoNavigator({
-	loading,
+	className,
 	nextPhotoId,
 	previousPhotoId,
-	className,
 	...rest
 }: PhotoNavigatorProps) {
 	const navigate = useNavigate();
+	const { isLoadingPhoto } = usePhoto();
 
 	return (
 		<div className={photonavigatorVariants({ className })} {...rest}>
-			{!loading ? (
+			{!isLoadingPhoto ? (
 				<>
 					<ButtonIcon
 						icon={ArrowLeftIcon}

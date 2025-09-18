@@ -17,9 +17,9 @@ export function AlbumsListSelectable({ photo }: AlbumsListSelectableProps) {
 	}
 
 	function handlePhotoOnAlbum(albumId: string) {
-		let albumsIds = [];
+		let albumsIds: string[] = [];
 
-		if (isChecked(albumId)) {
+		if (!isChecked(albumId)) {
 			albumsIds = photo.albums
 				.filter((album) => album.id !== albumId)
 				.map((album) => album.id);
