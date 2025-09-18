@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/a11y/noLabelWithoutControl: <Not production appliction> */
 import { type ComponentProps, useState } from "react";
 import { tv } from "tailwind-variants";
 import { ImagePreview } from "../../../components/image-preview";

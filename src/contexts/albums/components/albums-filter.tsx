@@ -3,6 +3,7 @@ import { tv } from "tailwind-variants";
 import { Button } from "../../../components/button";
 import { Skeleton } from "../../../components/skeleton";
 import { Text } from "../../../components/text";
+import { usePhotos } from "../../photos/hooks/use-photos";
 import { useAlbums } from "../hooks/use-albums";
 
 interface AlbumsFilterProps extends ComponentProps<"div"> {}
@@ -13,6 +14,7 @@ export const albumsFilterVariant = tv({
 
 export function AlbumsFilter({ className, ...rest }: AlbumsFilterProps) {
 	const { albums, isLoadingAlbums } = useAlbums();
+	const { filters } = usePhotos();
 
 	return (
 		<div className={albumsFilterVariant({ className })} {...rest}>
@@ -20,15 +22,21 @@ export function AlbumsFilter({ className, ...rest }: AlbumsFilterProps) {
 			<div className="flex items-center gap-3">
 				{!isLoadingAlbums && (
 					<>
-						<Button size="sm" className="cursor-pointer">
+						<Button
+							size="sm"
+							className="cursor-pointer"
+							variant={filters.albumId === null ? "primary" : "ghost"}
+							onClick={() => filters.setAlbumId(null)}
+						>
 							Todos
 						</Button>
 						{albums.map((album) => (
 							<Button
 								key={album.id}
-								variant="ghost"
+								variant={filters.albumId === album.id ? "primary" : "ghost"}
 								size="sm"
 								className="cursor-pointer shrink-0"
+								onClick={() => filters.setAlbumId(album.id)}
 							>
 								{album.title}
 							</Button>
