@@ -3,19 +3,15 @@ import { InputCheckbox } from "../../../components/input-checkbox";
 import { Skeleton } from "../../../components/skeleton";
 import { Text } from "../../../components/text";
 import type { Photo } from "../../photos/models/photo";
-import type { Album } from "../models/album";
+import { useAlbums } from "../hooks/use-albums";
 
 interface AlbumsListSelectableProps {
-	loading: boolean;
-	albums: Album[];
 	photo: Photo;
 }
 
-export function AlbumsListSelectable({
-	loading,
-	albums,
-	photo,
-}: AlbumsListSelectableProps) {
+export function AlbumsListSelectable({ photo }: AlbumsListSelectableProps) {
+	const { albums, isLoadingAlbums } = useAlbums();
+
 	function isChecked(albumId: string) {
 		return photo?.albums.some((album) => album.id === albumId);
 	}
@@ -36,7 +32,7 @@ export function AlbumsListSelectable({
 
 	return (
 		<ul className="flex flex-col gap-4">
-			{!loading &&
+			{!isLoadingAlbums &&
 				albums.length > 0 &&
 				albums.map((album, index) => (
 					<li key={album.id}>
@@ -52,7 +48,7 @@ export function AlbumsListSelectable({
 						{index !== albums.length - 1 && <Divider className="mt-4" />}
 					</li>
 				))}
-			{loading &&
+			{isLoadingAlbums &&
 				Array.from({ length: 5 }).map((_, index) => (
 					<li
 						key={`albums-list-${

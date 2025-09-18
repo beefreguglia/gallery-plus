@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { Link } from "react-router";
 import { tv } from "tailwind-variants";
 import Logo from "../assets/images/galeria-plus-full-logo.svg?react";
-import { AlbumNewDialog } from "../contexts/album/components/album-new-dialog";
+import { AlbumNewDialog } from "../contexts/albums/components/album-new-dialog";
 import { PhotoNewDialog } from "../contexts/photos/components/photo-new-dialog";
 import { Button } from "./button";
 import { Container } from "./container";

@@ -3,7 +3,7 @@ import { Container } from "../components/container";
 import { ImagePreview } from "../components/image-preview";
 import { Skeleton } from "../components/skeleton";
 import { Text } from "../components/text";
-import { AlbumsListSelectable } from "../contexts/album/components/albums-list-selectable";
+import { AlbumsListSelectable } from "../contexts/albums/components/albums-list-selectable";
 import { PhotoNavigator } from "../contexts/photos/components/photo-navigator";
 
 export function PagePhotoDetails() {
