@@ -7,6 +7,14 @@ export const inputCheckboxWrapperVariants = tv({
 	base: `
     inline-flex items-center justify-center relative group
   `,
+	variants: {
+		disabled: {
+			true: "pointer-events-none",
+		},
+	},
+	defaultVariants: {
+		disabled: false,
+	},
 });
 
 export const inputCheckboxVariants = tv({
@@ -28,14 +36,10 @@ export const inputCheckboxVariants = tv({
 			sm: "h-3 w-3 rounded-sm",
 			md: "w-5 h-5 rounded-sm",
 		},
-		disabled: {
-			true: "pointer-events-none",
-		},
 	},
 	defaultVariants: {
 		variant: "default",
 		size: "md",
-		disabled: false,
 	},
 });
 
@@ -58,7 +62,7 @@ export const inputCheckboxIconVariants = tv({
 
 interface InputCheckboxProps
 	extends VariantProps<typeof inputCheckboxVariants>,
-		Omit<ComponentProps<"input">, "size" | "disabled"> {}
+		Omit<ComponentProps<"input">, "size"> {}
 
 export function InputCheckbox({
 	variant,
@@ -68,10 +72,10 @@ export function InputCheckbox({
 	...rest
 }: InputCheckboxProps) {
 	return (
-		<label className={inputCheckboxWrapperVariants({ className })}>
+		<label className={inputCheckboxWrapperVariants({ className, disabled })}>
 			<input
 				type="checkbox"
-				className={inputCheckboxVariants({ variant, size, disabled })}
+				className={inputCheckboxVariants({ variant, size })}
 				{...rest}
 			/>
 			<Icon svg={CheckIcon} className={inputCheckboxIconVariants({ size })} />

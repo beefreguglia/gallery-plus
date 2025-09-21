@@ -6,12 +6,14 @@ import { ImagePreview } from "../components/image-preview";
 import { Skeleton } from "../components/skeleton";
 import { Text } from "../components/text";
 import { AlbumsListSelectable } from "../contexts/albums/components/albums-list-selectable";
+import { useAlbums } from "../contexts/albums/hooks/use-albums";
 import { PhotoNavigator } from "../contexts/photos/components/photo-navigator";
 import { usePhoto } from "../contexts/photos/hooks/use-photo";
 import type { Photo } from "../contexts/photos/models/photo";
 
 export function PagePhotoDetails() {
 	const { id } = useParams();
+	const { albums } = useAlbums();
 	const { photo, isLoadingPhoto, nextPhotoId, previousPhotoId } = usePhoto(id);
 
 	if (!isLoadingPhoto && !photo) {
@@ -56,7 +58,7 @@ export function PagePhotoDetails() {
 					<Text as="h3" variant="heading-medium" className="mb-6">
 						Álbuns
 					</Text>
-					<AlbumsListSelectable photo={photo as Photo} />
+					<AlbumsListSelectable albums={albums} photo={photo as Photo} />
 				</div>
 			</div>
 		</Container>
