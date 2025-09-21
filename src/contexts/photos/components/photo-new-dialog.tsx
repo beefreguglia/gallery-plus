@@ -42,7 +42,6 @@ export function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
 	const albumsIds = form.watch("albumsIds");
 
 	function handleSubmit(payload: PhotoNewFormSchema) {
-		console.log(payload);
 		setIsCreatingPhoto(async () => {
 			await createPhoto(payload);
 			setModalOpen(false);
