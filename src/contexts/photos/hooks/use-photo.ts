@@ -1,5 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
+
 import { api, fetcher } from "../../../helpers/api";
 import type { Photo } from "../models/photo";
 import type { PhotoNewFormSchema } from "../schemas";
@@ -18,6 +20,7 @@ export function usePhoto(id?: string) {
 	});
 
 	const queryClient = useQueryClient();
+	const navigate = useNavigate();
 	const { managePhotoOnAlbum } = usePhotoAlbums();
 
 	async function createPhoto(payload: PhotoNewFormSchema) {
@@ -50,6 +53,17 @@ export function usePhoto(id?: string) {
 		}
 	}
 
+	async function deletePhoto(photoId: string) {
+		try {
+			await api.delete(`photos/${photoId}`);
+			navigate("/");
+			toast.success("Foto deletada com sucesso");
+		} catch (error) {
+			toast.error("Erro ao excluir foto");
+			throw error;
+		}
+	}
+
 	return {
 		photo: {
 			albums: data?.albums || [],
@@ -61,5 +75,6 @@ export function usePhoto(id?: string) {
 		previousPhotoId: data?.previousPhotoId,
 		isLoadingPhoto: isLoading,
 		createPhoto,
+		deletePhoto,
 	};
 }

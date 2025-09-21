@@ -1,5 +1,4 @@
 import { useParams } from "react-router";
-
 import { Button } from "../components/button";
 import { Container } from "../components/container";
 import { ImagePreview } from "../components/image-preview";
@@ -7,6 +6,7 @@ import { Skeleton } from "../components/skeleton";
 import { Text } from "../components/text";
 import { AlbumsListSelectable } from "../contexts/albums/components/albums-list-selectable";
 import { useAlbums } from "../contexts/albums/hooks/use-albums";
+import { PhotoDeleteConfirmationDialog } from "../contexts/photos/components/photo-delete-confimation-dialog";
 import { PhotoNavigator } from "../contexts/photos/components/photo-navigator";
 import { usePhoto } from "../contexts/photos/hooks/use-photo";
 import type { Photo } from "../contexts/photos/models/photo";
@@ -17,7 +17,7 @@ export function PagePhotoDetails() {
 	const { photo, isLoadingPhoto, nextPhotoId, previousPhotoId } = usePhoto(id);
 
 	if (!isLoadingPhoto && !photo) {
-		return <div></div>;
+		return <div>Foto não encontrada</div>;
 	}
 
 	return (
@@ -47,9 +47,14 @@ export function PagePhotoDetails() {
 						<Skeleton className="h-[21rem]" />
 					)}
 					{!isLoadingPhoto ? (
-						<Button variant="destructive" className="w-fit">
-							Excluir
-						</Button>
+						<PhotoDeleteConfirmationDialog
+							photoId={photo.id}
+							trigger={
+								<Button variant="destructive" className="w-fit">
+									Excluir
+								</Button>
+							}
+						/>
 					) : (
 						<Skeleton className="w-20 h-10" />
 					)}
